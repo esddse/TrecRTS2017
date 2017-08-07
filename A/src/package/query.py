@@ -1,0 +1,34 @@
+import json
+from trecjson import TrecJson
+
+class Query(TrecJson):
+    def __init__(self, query_json, stopword_set):
+        TrecJson.__init__(self, stopword_set)
+
+        try:
+            t = json.loads(query_json)
+            self.topid         = t['topid']
+            self.title         = t['title']
+            self.description   = t['description']
+            self.narrative     = t['narrative']
+            
+            self.id            = self.topid
+            
+            self.plain_text    = self.extract_plain_text(self.title)
+            self.word_list     = self.extract_word_list(self.plain_text)
+            self.word_distri   = self.extract_distribution(self.word_list)
+            self.word_tf       = self.extract_tf(self.word_list)
+            self.stem_list     = self.stem(self.filter_stopword(self.word_list))
+            self.stem_distri   = self.extract_distribution(self.stem_list)
+            self.stem_tf       = self.extract_tf(self.stem_list)
+
+            self.additional_tf = {}
+            self.expanded_tf   = self.stem_tf
+
+
+            self.is_valid = True
+        except:
+            self.is_valid = False
+ 
+
+
