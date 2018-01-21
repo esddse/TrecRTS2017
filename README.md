@@ -2,9 +2,9 @@
 
 TREC RTS homepage: [http://trecrts.github.io/](http://trecrts.github.io/).
 
-## Result
-* **Scenario A**: 8/41(mobile), 6/41(NIST) 
-* **Scenario B**: 2/41
+## Rank
+* **Scenario A**: 8/41 (mobile), 6/41 (NIST) 
+* **Scenario B**: 2/41 (NIST)
 
 ## Source Code
 
