@@ -1,0 +1,23 @@
+\section{Introduction}
+Microblog, such as Twitter and Weibo, has become one of the most important accesses for people to get information.
+However, finding out helpful information from massive microblogs by hand can be very difficult and exhausting.
+Building an automatic system that helps to pick out specific microblog is a good solution.
+The TREC 2017 Real-Time Summarization (RTS) Track aims to explore techniques that helps build such systems.
+There are two scenarios contained in the RTS Track: 
+
+\begin{itemize}
+\item \textbf{Scenario A (push notification):}
+Content that is identified as relevant and novel by a system based
+on the user's interest profile should be sent to the user in a timely fashion. 
+\item \textbf{Scenario B (email digest):}
+Participating systems should identify tweets and aggregate them into an email digest.
+The email should be periodically sent to a user. Under that circumstances,
+users can read a longer story about the contents.
+\end{itemize}
+
+For both scenario A and B, we perform a two-stage filter system separately.
+
+In push notification scenario, our system contains three function modules, Filter Module, Judge Module and Submit Module, and two tables, i.e. Pre-process Table and Submit Table, that transfer data between modules. The Filter Module listens to the tweet sample stream, roughly filter out tweets that obviously     irrelevant to the interest profiles, and insert the remain tweets into the Pre-process Table. The Judge Module continuously detects new tweets from the Pre-process Table, and compute the relevance score between those tweets and the interest profiles. A tuned relevance threshold $\alpha$ is utilized to judge whether a specific tweet and an interest profile are relevant. Then, for every relevant profile, we compute   the novelty score between current tweet and previous submitted tweets. Similarly, a novelty threshold $\beta$ is used to determine whether a tweet is novel. Those tweets passed the two threshold will be inserted to the Submit Table. Finally, the Submit Module submit tweets in the Submit Table to the Evaluation Broker. The independence of the three module guarantees that the system can recover quickly and safely from system crash.
+
+In email digest scenario, we directly precess the tweets from Pre-process Table. The whole procedure is basically the same as Judge Model in scenario A. Two threshold are performed to filter out those 'relevant but novel' tweets. the only difference is that after the filtering, we sort the tweets by the relevance score for every interest profile, and select the top 100 tweets per interest profile per day. 
+

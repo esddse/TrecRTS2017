@@ -1,0 +1,68 @@
+\def\year{2017}
+%File: formatting-instruction.tex
+\documentclass[letterpaper]{article}
+\usepackage{aaai}
+\usepackage{times}
+\usepackage{helvet}
+\usepackage{courier}
+\usepackage{subfigure}
+\usepackage{algorithm}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{algpseudocode} %format of the algorithm
+\usepackage{color}
+\usepackage{url}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{epsfig}
+\usepackage{amsmath, bm}
+\usepackage{amsfonts}
+\usepackage{enumitem}
+\usepackage{ulem}
+\normalem
+\frenchspacing
+\setlength{\pdfpagewidth}{8.5in}
+\setlength{\pdfpageheight}{11in}
+\pdfinfo{
+/Title (Insert Your Title Here)
+/Author (Put All Your Authors Here, Separated by Commas)}
+\setcounter{secnumdepth}{0}  
+ \begin{document}
+% The file aaai.sty is the style file for AAAI Press 
+% proceedings, working notes, and technical reports.
+%
+\title{PKUICST at TREC 2017 Real-Time Summarization Track:\\
+Push Notifications and Email Digest
+}
+\author{Jizhi Tang \quad Chao Lv \quad Lili Yao \quad Dongyan Zhao\footnote{Corresponding author} \\
+\{tangjizhi, lvchao, yaolili, zhaody\}@pku.edu.cn\\
+\\
+Institute of Computer Science and Technology\\
+Peking University, Beijing 100871, China\\
+}
+
+\maketitle
+\begin{abstract}
+\begin{quote}
+In this paper, we describe our approaches and corresponding results in the Real-Time Summarization(RTS) track at the 2017 Text Retrieval Conference(TREC).
+The main idea is to build a two-stage filter system for both scenario A and B. 
+In the first stage, tweets are filtered according to its relevance score to a particular topic,
+while in the second stage, they are filtered according to its novelty score to previous submitted tweets.
+We tried several approaches to model the text similarity, such as negative KL-divergence and cosine distance, as well as blending models.
+Especially, in scenario A, the push notification scenario, we designed a decoupled system that can maintain high availability in order to meet the real-time requirements. 
+The experiment results show that our methods reach good performance with respect to several metrics such as EG-p and nDCG-p.
+\end{quote}
+\end{abstract}
+
+\input{sec-intro}
+\input{sec-method}
+\input{sec-exp}
+\input{sec-con}
+
+\section{Acknowledgments}
+The work reported in this paper is supported by the National Natural Science Foundation of China Grant 61370116.
+
+\bibliographystyle{aaai}
+\bibliography{yelp}
+\end{document}

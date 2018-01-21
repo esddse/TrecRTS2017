@@ -1,0 +1,90 @@
+\section{Experiment}
+The evaluation of TREC 2017 Real-time Summarization track takes place from
+July 25, 2017 UTC to August 3, 2017 UTC.
+
+\subsection{Scenario A}
+For Scenario A, there are two main assessment approaches.
+
+One is Mobile Assessment. Mobile assessors receive pushed tweets immediately, 
+and judge whether that tweet is relevant, redundant or non-relevant.
+The strict precision is the proportion of relevant tweets pushed by a run,
+and the lenient precision is the proportion of relevant and redundant tweets pushed by a run.
+This time, assessors judged 188 topics(with uneven effort), 
+and the results of Mobile Assessment are shown in Table.\ref{tab:A_mobile}.
+
+Another assessment approach is NIST Assessment. 
+This assessment has multiple metrics, 
+including Expected Gain (EG) and Normalized Cumulative Gain (nCG).
+There two variants of EG, EG-1 and EG-p.
+In EG-1 metrics, on a silent day,  
+the system receives a score of one (i.e., perfect score) if it does not push any tweets.
+While in EG-p, on a silent day, 
+the score is one minus the fraction of the ten-tweet daily quota that is used. 
+Similarly, we can define nCG-1 and nCG-p.
+The results of NIST Assessment are shown in Table.\ref{tab:A_NIST}
+
+We can observe that different approaches of modelling similarity have different preferences.
+In PKUICSTRunA2 and PKUICSTRunA3, we select IDF-cosine algorithm and a relative high relevance threshold.
+That makes PKUICSTRunA2 and PKUICSTRunA3 get higher score in precision.
+But higher threshold also means the system tends not to push the tweets, 
+witch makes these systems perform bad in some macro-averaged metrics
+(because it's common for these systems to push nothing all day), like EG and nCG.
+Additionally, from the comparison of PKUICSTRunA2 and PKUICSTRunA3, 
+we learn that a good query expansion method really helps a lot,
+and pseudo relevance feedback technique can be a choice.     
+
+\begin{table}[htbp]
+\centering
+\caption{Scenario A Mobile Assessment.}
+\label{tab:A_mobile}
+\begin{tabular}{lrr}
+\hline
+Run ID&strict precision&lenient precision\\
+\hline
+PKUICSTRunA1&0.3108&0.3642\\
+PKUICSTRunA2&0.3673&0.4174\\
+PKUICSTRunA3&\textbf{0.3863}&\textbf{0.4340}\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Scenario A NIST Assessment.}
+\label{tab:A_NIST}
+\begin{tabular}{lrrrr}
+\hline
+Run ID&EGp&EG1&nCGp&nCG1\\
+\hline
+PKUICSTRunA1&\textbf{0.2869}&\textbf{0.2588}&\textbf{0.2864}&\textbf{0.2583}\\
+PKUICSTRunA2&0.1959&0.1866&0.1866&0.1774\\
+PKUICSTRunA3&0.1997&0.1892&0.1908&0.1804\\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Scenario B}
+
+Table.\ref{tab:B_NIST} reports our results for the email digest scenario.
+The main evaluation metric is nDCG-p and nDCG-1.
+
+As we keep our parameter setting in Senario B similar to that in Senario A,
+the performance of our system in Scenario B have the same trend with that in Scenario A. 
+It shows that our two-stage filtering approach also perform well in a non-real-time task.
+
+\begin{table}[htbp]
+\centering
+\caption{Scenario B NIST Assessment.}
+\label{tab:B_NIST}
+\begin{tabular}{lrr}
+\hline
+Run ID&nDCGp&nDCG1\\
+\hline
+PKUICSTRunB1&\textbf{0.3483}&\textbf{0.3003}\\
+PKUICSTRunB2&0.1968&0.1809\\
+PKUICSTRunB3&0.2306&0.2024\\
+\hline
+\end{tabular}
+\end{table}
+
+
