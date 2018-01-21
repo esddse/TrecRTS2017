@@ -2,6 +2,10 @@
 
 TREC RTS homepage: [http://trecrts.github.io/](http://trecrts.github.io/).
 
+## Result
+* **Scenario A**: 8/41(mobile), 6/41(NIST) 
+* **Scenario B**: 2/41
+
 ## Source Code
 
 * Codes for Senario A are in directory [A](A).
