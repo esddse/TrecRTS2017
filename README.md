@@ -1,6 +1,6 @@
 # PKUICST at TREC 2017 Real-Time Summarization Track
 
-TREC RTS homepage:[http://trecrts.github.io/](http://trecrts.github.io/).
+TREC RTS homepage: [http://trecrts.github.io/](http://trecrts.github.io/).
 
 ## Source Code
 
@@ -14,10 +14,10 @@ More detailed informations are in the directories.
 
 We built our 3 runs on 3 different servers.
 
-for Scenario A, each server runs 3 python scripts:
-* **a twitter tool**: fetching tweets and serve as filtering module.
-* **a "RUN_*.py" script**: judging module.
-* **a "SUBMIT.py" script**: submitting module.
+For Scenario A, each server runs 3 python scripts:
+* **a twitter tool**: fetching tweets and serve as the filtering module.
+* **a "RUN_*.py" script**: the judging module.
+* **a "SUBMIT.py" script**: the submitting module.
 
 ## Paper
 
