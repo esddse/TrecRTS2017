@@ -2,7 +2,7 @@
 
 TREC RTS homepage:[http://trecrts.github.io/](http://trecrts.github.io/).
 
-### Source Code
+## Source Code
 
 * Codes for Senario A are in directory [A](A).
 * Codes for Senario B are in directory [B](B). 
@@ -10,6 +10,15 @@ TREC RTS homepage:[http://trecrts.github.io/](http://trecrts.github.io/).
 
 More detailed informations are in the directories.
 
-### Paper
+## Build
 
-The LaTeX source codes are in directory [paper_trec17](paper_trec17), and you can read the PDF version [here](paper_trec17/trec2017.pdf)
+We built our 3 runs on 3 different servers.
+
+for Scenario A, each server runs 3 python scripts:
+* **a twitter tool**: fetching tweets and serve as filtering module.
+* **a "RUN_*.py" script**: judging module.
+* **a "SUBMIT.py" script**: submitting module.
+
+## Paper
+
+The LaTeX source codes are in directory [paper_trec17](paper_trec17), and you can read the [PDF version](paper_trec17/trec2017.pdf)
