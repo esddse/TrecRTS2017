@@ -89,7 +89,7 @@ def save_submit_log(qid, day, tweet):
 
 def post_submit(qid, tid):
     try:
-        conn=MySQLdb.connect(host='localhost',user='root',passwd='esddse000178',db='trec17',port=3306)
+        conn=MySQLdb.connect(host='localhost',user='',passwd='',db='trec17',port=3306)
         cur=conn.cursor()
         cur.execute('INSERT INTO submit (qid, tid, client_id) VALUES (%s, %s, %s)', [qid, tid, client_id])
         conn.commit()
@@ -109,9 +109,12 @@ def sim_t_t(tweet_1, tweet_2):
 def run(query, tweet):
     dt = datetime.datetime.strptime(tweet.created_at, "%a %b %d %H:%M:%S +0000 %Y")
     curday = date2day(dt.month, dt.day)
+    # submitting rate limitation
     if len(submit_log[query.id][curday]) >= 10: return
+    # compute relevance score
     rel_score = sim_q_t(query, tweet)
     if rel_score > rel_thr:
+        # find max redundance score
         max_red_score = 0
         for day in range(1, curday + 1):
             for submited_tweet in submit_log[query.id][day]:
@@ -123,26 +126,31 @@ def run(query, tweet):
             post_submit(query.id, tweet.id)
 #########################################################
 
+# query-tweet word overlap filtering
 def is_overlap(query, tweet):
     for stem in query.stem_distri:
         if stem in tweet.stem_distri:
             return True
     return False
 
+# another entrance of tweet processing
 def tweet_handle(tweet):
     for query in query_list:
         if is_overlap(query, tweet):
             run(query, tweet)
 
+# all stem filtering
 def is_quick_filtered(tweet):
     for stem in tweet.stem_distri:
         if stem in all_stem_set:
             return False
     return True
 
+# the entrance of tweet processing
 def row_handle(created_at, id_str, word_list_str, stem_list_str):
     dt = datetime.datetime.strptime(created_at, "%a %b %d %H:%M:%S +0000 %Y")
     curday = date2day(dt.month, dt.day)
+    # date filtering
     if curday >= 1 and curday <= 10:
         tweet = AdvancedTweet(created_at, id_str, word_list_str, stem_list_str)
         if not is_quick_filtered(tweet):
@@ -151,8 +159,8 @@ def row_handle(created_at, id_str, word_list_str, stem_list_str):
 def main():
     try:
         conn = MySQLdb.connect(host   = 'localhost',
-                               user   = 'root',
-                               passwd = 'esddse000178',
+                               user   = '',
+                               passwd = '',
                                db     = 'trec17',
                                port   = 3306)
         cur=conn.cursor()
@@ -165,6 +173,8 @@ def main():
             id_str        = row[2] 
             word_list_str = row[3]
             stem_list_str = row[4]
+
+            # process tweets
             row_handle(created_at, id_str, word_list_str, stem_list_str)
             cur.execute('UPDATE preprocess SET is_process = 1 WHERE id = %d' % id)
         conn.commit()
@@ -177,6 +187,8 @@ def main():
         print e            
 
 if __name__ == "__main__":
+
+    # do the filtering every 10s.
     while True:
         print 'main ...'
         main()

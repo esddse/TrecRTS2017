@@ -127,7 +127,7 @@ def row_handle(created_at, id_str, word_list_str, stem_list_str):
 
 def main():
     try:
-        conn = MySQLdb.connect(host='localhost', user='root', passwd='esddse000178', db='trec17', port=3306)
+        conn = MySQLdb.connect(host='localhost', user='', passwd='', db='trec17', port=3306)
         cur  = conn.cursor()
 
         cnt = 0

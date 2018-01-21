@@ -92,7 +92,7 @@ def save_submit_log(qid, day, tweet):
 
 def post_submit(qid, tid):
     try:
-        conn=MySQLdb.connect(host='localhost',user='root',passwd='esddse000178',db='trec17',port=3306)
+        conn=MySQLdb.connect(host='localhost',user='',passwd='',db='trec17',port=3306)
         cur=conn.cursor()
         cur.execute('INSERT INTO submit (qid, tid, client_id) VALUES (%s, %s, %s)', [qid, tid, client_id])
         conn.commit()
@@ -154,8 +154,8 @@ def row_handle(created_at, id_str, word_list_str, stem_list_str):
 def main():
     try:
         conn = MySQLdb.connect(host   = 'localhost',
-                               user   = 'root',
-                               passwd = 'esddse000178',
+                               user   = '',
+                               passwd = '',
                                db     = 'trec17',
                                port   = 3306)
         cur=conn.cursor()

@@ -8,8 +8,8 @@ import datetime
 def main():
     try:
         conn = MySQLdb.connect(host   = 'localhost',
-                               user   = 'root',
-                               passwd = 'esddse000178',
+                               user   = '',
+                               passwd = '',
                                db     = 'trec17',
                                port   = 3306)
         cur=conn.cursor()

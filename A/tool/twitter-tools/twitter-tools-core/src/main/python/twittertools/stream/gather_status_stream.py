@@ -24,11 +24,12 @@ sys.path.append('../../../../../../../../src')
 from package.tweet import Tweet
 from package.utils import load_stopword_set
 
+# Twitter Application Key
 consumer_key="bAxsrRBfdR0CU7aEOG8hb6HZQ"
-consumer_secret="e0SvPvTH2tNAPqRHEq8fRU6CKQeV4hYhLvDUMJVzXDel0PBddK"
+consumer_secret=""
 
 access_token="846907690743808001-7iidphvmz7GCALMAvd4bOGgtVRUkyU4"
-access_token_secret="3Tt0XMQ9319UMAf5i6RVPBfJmtFWJfmeWnxqOd0SrHAhS"
+access_token_secret=""
 
 stopword_set = load_stopword_set()
 
@@ -62,16 +63,19 @@ class TweetListener(StreamListener):
         self.count+=1
         #self.logger.info(data)
         self.cache.append(data)
+
+        # do filtering every 1000 tweets
         if self.count % 1000 == 0:
             print "%d statuses processed" % self.count
             try:
                 insert_data = []
                 for raw_json in self.cache:
+                    # do filtering and add to a struct
                     t = Tweet(raw_json, stopword_set)
                     if t.is_valid:
                         insert_data.append([t.created_at, t.id_str, " ".join(t.word_list), " ".join(t.stem_list)])
                 if len(insert_data) > 0:
-                    conn=MySQLdb.connect(host='localhost',user='root',passwd='esddse000178',db='trec17',port=3306)
+                    conn=MySQLdb.connect(host='localhost',user='',passwd='',db='trec17',port=3306)
                     cur=conn.cursor()
                     cur.executemany('INSERT INTO preprocess (created_at, id_str, word_list_str, stem_list_str) VALUES (%s, %s, %s, %s)', insert_data)
                     conn.commit()
